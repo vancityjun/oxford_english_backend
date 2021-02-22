@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  word: MyString
+  level: MyString
+  pos: MyString
+  ox5000: false
+
+two:
+  word: MyString
+  level: MyString
+  pos: MyString
+  ox5000: false
