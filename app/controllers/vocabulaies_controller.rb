@@ -1,3 +1,3 @@
-class VocabulariesController ApplicationController
-  
+class VocabulariesController
+  ApplicationController
 end
