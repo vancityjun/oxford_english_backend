@@ -8,5 +8,12 @@ module Types
       return Vocabulary.all if levels.empty?
       Vocabulary.where level: levels
     end
+
+    field :definitions, DefinitionType.connection_type, null: false do
+      argument :vocabulary_id, ID, required: true
+    end
+    def definitions(vocabulary_id:)
+      Definition.where vocabulary_id: vocabulary_id
+    end
   end
 end
