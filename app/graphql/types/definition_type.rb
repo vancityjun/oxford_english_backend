@@ -1,7 +1,8 @@
 module Types
   class DefinitionType < Types::BaseObject
     field :id, ID, null: false
-    field :definition, String, null: false
+    field :content, String, null: false
     field :form, String, null: false
+    field :note_id, ID, null: false
   end
 end

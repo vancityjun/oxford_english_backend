@@ -9,8 +9,13 @@ module Types
       Vocabulary.where level: levels
     end
 
+    field :current_user, UserType, null: false
+    def current_user
+      context[:current_user]
+    end
+
     field :definitions, DefinitionType.connection_type, null: false do
-      argument :vocabulary_id, ID, required: true
+      argument :vocabulary_id, Integer, required: true
     end
     def definitions(vocabulary_id:)
       Definition.where vocabulary_id: vocabulary_id

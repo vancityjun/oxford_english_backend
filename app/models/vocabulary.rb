@@ -1,3 +1,4 @@
 class Vocabulary < ApplicationRecord
-  has_many :definitions, dependent: :destroy
+  has_many :notes
+  has_many :users, through: :notes
 end
