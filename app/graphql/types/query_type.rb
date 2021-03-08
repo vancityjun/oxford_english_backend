@@ -14,11 +14,12 @@ module Types
       context[:current_user]
     end
 
-    field :definitions, DefinitionType.connection_type, null: false do
+    field :note, NoteType, null: false do
+      argument :user_id, Integer, required: false
       argument :vocabulary_id, Integer, required: true
     end
-    def definitions(vocabulary_id:)
-      Definition.where vocabulary_id: vocabulary_id
+    def note(user_id:, vocabulary_id:)
+      Note.where(user_id: user_id, vocabulary_id: vocabulary_id)
     end
   end
 end

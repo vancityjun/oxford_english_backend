@@ -20,25 +20,25 @@ ActiveRecord::Schema.define(version: 2021_03_04_032913) do
     t.string "form"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "notes_id"
-    t.index ["notes_id"], name: "index_definitions_on_notes_id"
+    t.bigint "note_id"
+    t.index ["note_id"], name: "index_definitions_on_note_id"
   end
 
   create_table "examples", force: :cascade do |t|
-    t.bigint "definitions_id"
+    t.bigint "definition_id"
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["definitions_id"], name: "index_examples_on_definitions_id"
+    t.index ["definition_id"], name: "index_examples_on_definition_id"
   end
 
   create_table "notes", force: :cascade do |t|
-    t.bigint "users_id"
-    t.bigint "vocabularies_id"
+    t.bigint "user_id"
+    t.bigint "vocabulary_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["users_id"], name: "index_notes_on_users_id"
-    t.index ["vocabularies_id"], name: "index_notes_on_vocabularies_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
+    t.index ["vocabulary_id"], name: "index_notes_on_vocabulary_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_032913) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "definitions", "notes", column: "notes_id"
-  add_foreign_key "notes", "users", column: "users_id"
-  add_foreign_key "notes", "vocabularies", column: "vocabularies_id"
+  add_foreign_key "definitions", "notes"
+  add_foreign_key "notes", "users"
+  add_foreign_key "notes", "vocabularies"
 end

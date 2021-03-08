@@ -4,5 +4,6 @@ module Types
     field :content, String, null: false
     field :form, String, null: false
     field :note_id, ID, null: false
+    field :examples, [Types::ExampleType], null: true
   end
 end

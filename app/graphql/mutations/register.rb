@@ -6,19 +6,15 @@ module Mutations
     argument :last_name, String, required: true
 
     field :errors, [String], null: true
-    field :token, String, null: false
     field :user, Types::UserType, null: false
 
     def resolve(email:, password:, first_name:, last_name:)
-      email.downcase if email =~ /[A-Z]/
       user = User.new(email: email, password: password, first_name: first_name, last_name: last_name)
       
-      if user.save
-        token = JWT.encode(user.id.to_s, nil, 'none')
-        user.delete if token.nil?
-        context[:session][:token] = token
+      if user.save!
+        user.delete if token.nil? 
+        context[:session][:token] = user.token
         {
-          token: token,
           user: user,
           errors: []
         }
