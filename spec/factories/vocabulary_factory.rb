@@ -3,6 +3,5 @@ FactoryBot.define do
     word {'abandon'}
     level {'b1'}
     pos {'verb'}
-    user {association :user}
   end
 end

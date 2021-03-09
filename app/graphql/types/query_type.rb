@@ -21,5 +21,13 @@ module Types
     def note(user_id:, vocabulary_id:)
       Note.where(user_id: user_id, vocabulary_id: vocabulary_id)
     end
+
+    field :definitions, Types::DefinitionType.connection_type, null: false do
+      argument :vocabulary_id, Integer, required: true
+    end
+    def definitions(vocabulary_id:)
+      vocabulary = Vocabulary.find(vocabulary_id)
+      vocabulary.notes.map(&:definitions).flatten
+    end
   end
 end
