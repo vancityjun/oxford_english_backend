@@ -3,7 +3,7 @@ module Mutations
     field :errors, [String], null: true
     field :message, String, null: false
 
-    def resolve()
+    def resolve
       context[:session][:token] = nil
       {
         message: 'user logout',

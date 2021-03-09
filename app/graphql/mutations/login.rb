@@ -8,7 +8,7 @@ module Mutations
 
     def resolve(email:, password:)
       user = User.find_by(email: email)
-      
+
       if user && user.password === password
         context[:session][:token] = token
         {

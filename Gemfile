@@ -28,19 +28,18 @@ gem 'turbolinks', '~> 5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+gem 'attr_encrypted', '~> 3.1.0'
 gem 'graphql'
-gem 'rack-cors'
-gem "attr_encrypted", "~> 3.1.0"
 gem 'jwt'
-gem "rspec"
+gem 'rack-cors'
+gem 'rspec'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
-  gem 'rspec-rails'
   gem 'pry', '~> 0.13.1'
-
+  gem 'rspec-rails'
 end
 
 group :development do

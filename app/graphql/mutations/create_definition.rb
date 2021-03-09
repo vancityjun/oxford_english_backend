@@ -27,9 +27,8 @@ module Mutations
           errors: []
         }
       else
-        {errors: ['there was an error while creating definitions']} 
+        { errors: ['there was an error while creating definitions'] }
       end
-
     end
   end
 end

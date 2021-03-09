@@ -10,9 +10,9 @@ module Mutations
 
     def resolve(email:, password:, first_name:, last_name:)
       user = User.new(email: email, password: password, first_name: first_name, last_name: last_name)
-      
+
       if user.save!
-        user.delete if token.nil? 
+        user.delete if token.nil?
         context[:session][:token] = user.token
         {
           user: user,
