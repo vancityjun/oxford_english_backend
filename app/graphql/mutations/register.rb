@@ -13,7 +13,7 @@ module Mutations
 
       if user.save!
         user.delete if token.nil?
-        context[:session][:token] = user.token
+        context[:current_user] = user
         {
           user: user,
           errors: []

@@ -4,13 +4,13 @@ module Mutations
     argument :password, String, required: true
 
     field :errors, [String], null: true
-    field :user, Types::UserType, null: false
+    field :user, Types::UserType, null: true
 
     def resolve(email:, password:)
       user = User.find_by(email: email)
-
+      
       if user && user.password === password
-        context[:session][:token] = token
+        context[:current_user] = user
         {
           user: user,
           errors: []

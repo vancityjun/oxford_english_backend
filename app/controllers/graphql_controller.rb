@@ -52,9 +52,11 @@ class GraphqlController < ApplicationController
   end
 
   def current_user
-    return unless session[:token]
+    return if request.headers['Authorization'].blank?
+    token = request.headers['Authorization'].split(' ').last
+    return if token.blank?
 
-    decrypted_token = JWT.decode session[:token], nil, false
+    decrypted_token = JWT.decode token, nil, false
     User.find(decrypted_token[0].to_i)
   end
 end
