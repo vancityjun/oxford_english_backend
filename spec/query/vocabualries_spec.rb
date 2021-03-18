@@ -11,19 +11,25 @@ RSpec.describe Types::VocabularyType, type: :request do
     note.save!
 
     query = <<-GQL
-      query($levels: [String]) {
-        vocabularies (levels: $levels) {
-          id
-          word
-          pos
-          level
-          ox5000
-          note{
-            definitions {
-              form
-              content
-              examples {
-                content
+      query($first: Int, $levels: [String]) {
+        vocabularies (first: $first,levels: $levels) {
+          edges{
+            cursor
+            node{
+              id
+              word
+              pos
+              level
+              ox5000
+              note {
+                updatedAt
+                definitions {
+                  content
+                  form
+                  examples {
+                    content
+                  }
+                }
               }
             }
           }
@@ -33,17 +39,18 @@ RSpec.describe Types::VocabularyType, type: :request do
 
     result = ServerSchema.execute(
       query,
-      variables: {levels: ['b1']},
+      variables: {first: 1, levels: ['b1']},
       context: {current_user: user}
-    ).to_h.deep_symbolize_keys[:data][:vocabularies]
-
-    expect(result[0]).to match({
+    ).to_h.deep_symbolize_keys[:data][:vocabularies][:edges]
+    
+    expect(result[0][:node]).to match({
       id: vocabulary.id.to_s,
       word: vocabulary.word,
       level: vocabulary.level,
       pos: vocabulary.pos,
       ox5000: vocabulary.ox5000,
       note: {
+        updatedAt: kind_of(String),
         definitions: definitions_attr(definitions)
       }
     })
