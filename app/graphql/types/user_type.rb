@@ -4,6 +4,10 @@ module Types
     field :email, String, null: false
     field :first_name, String, null: false
     field :last_name, String, null: false
+    field :full_name, String, null: false
     field :token, String, null: false
+    def full_name
+      "#{first_name} #{last_name}"
+    end
   end
 end

@@ -13,6 +13,7 @@ RSpec.describe Types::VocabularyType, type: :request do
     query = <<-GQL
       query($first: Int, $levels: [String]) {
         vocabularies (first: $first,levels: $levels) {
+          totalCount
           edges{
             cursor
             node{
@@ -21,6 +22,7 @@ RSpec.describe Types::VocabularyType, type: :request do
               pos
               level
               ox5000
+              count
               note {
                 updatedAt
                 definitions {
@@ -49,6 +51,7 @@ RSpec.describe Types::VocabularyType, type: :request do
       level: vocabulary.level,
       pos: vocabulary.pos,
       ox5000: vocabulary.ox5000,
+      count: 1,
       note: {
         updatedAt: kind_of(String),
         definitions: definitions_attr(definitions)

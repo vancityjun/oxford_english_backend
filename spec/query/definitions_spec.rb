@@ -6,7 +6,7 @@ RSpec.describe Types::DefinitionType, type: :request do
   let(:note) {Note.find_by(user_id: user.id, vocabulary_id: vocabulary.id)}
   let(:definitions) {create_list :definition, 3}
 
-  it 'returns definitions', focus: true do
+  it 'returns definitions' do
     note.definitions << definitions
     note.save!
 

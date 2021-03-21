@@ -4,5 +4,6 @@ module Types
     field :login, mutation: Mutations::Login
     field :logout, mutation: Mutations::Logout
     field :create_definition, mutation: Mutations::CreateDefinition
+    field :update_definition, mutation: Mutations::UpdateDefinition
   end
 end
