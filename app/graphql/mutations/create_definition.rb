@@ -3,9 +3,9 @@ module Mutations
     argument :vocabulary_id, ID, required: true
     argument :content, String, required: true
     argument :form, String, required: false
-    argument :examples, [String], required: false
+    argument :examples, [Types::ExampleAttributes], required: false
 
-    field :vocabulary, Types::VocabularyType, null: false
+    field :definition, Types::DefinitionType, null: false
     field :errors, [String], null: false
 
     def resolve(vocabulary_id:, content:, form:, examples:)
@@ -18,12 +18,12 @@ module Mutations
       definition = note.definitions.build(content: content, form: form)
 
       examples.each do |example|
-        definition.examples.build(content: example)
+        definition.examples.build(content: example[:content]) if example[:content].present?
       end
 
       if note.save!
         {
-          vocabulary: vocabulary,
+          definition: definition,
           errors: []
         }
       else
