@@ -9,8 +9,8 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(id:, content:, form:, examples:)
+      return unless context[:current_user]
       definition = Definition.find(id)
-      current_user = context[:current_user]
       examples_attributes = examples.as_json(only: [:id, :content, :_destroy])
 
       definition.update(content: content, form: form, examples_attributes: examples_attributes)
@@ -21,7 +21,7 @@ module Mutations
           errors: []
         }
       else
-        { errors: ['there was an error while creating definitions'] }
+        { errors: ['there was an error while updating definitions'] }
       end
     end
   end

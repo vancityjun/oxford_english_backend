@@ -26,8 +26,8 @@ module Types
       argument :vocabulary_id, Integer, required: true
     end
     def definitions(vocabulary_id:)
-      vocabulary = Vocabulary.find(vocabulary_id)
-      vocabulary.notes.map(&:definitions).flatten
+      notes = Note.where(vocabulary_id: vocabulary_id).includes(definitions: :examples)
+      notes.map(&:definitions).flatten
     end
   end
 end
