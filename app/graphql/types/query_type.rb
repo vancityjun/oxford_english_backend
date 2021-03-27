@@ -22,7 +22,7 @@ module Types
       Note.where(user_id: user_id, vocabulary_id: vocabulary_id)
     end
 
-    field :definitions, Types::DefinitionType.connection_type, null: false do
+    field :definitions, DefinitionType.connection_type, null: false do
       argument :vocabulary_id, Integer, required: true
     end
     def definitions(vocabulary_id:)

@@ -18,6 +18,7 @@ RSpec.describe Types::DefinitionType, type: :request do
             node {
               form
               content
+              languageCode
               examples {
                 content
               }
@@ -42,7 +43,8 @@ RSpec.describe Types::DefinitionType, type: :request do
         cursor: kind_of(String),
         node:{
           content: definition.content,
-          form: definition.form,
+          dislike: definition.dislike,
+          languageCode: definition.language_code,
           examples: examples(definition.examples)
         }
       }

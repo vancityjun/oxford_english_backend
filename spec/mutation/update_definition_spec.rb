@@ -5,13 +5,15 @@ RSpec.describe Mutations::UpdateDefinition do
   let!(:definition) {create :definition}
   let(:example_ids) {definition.examples.pluck(:id)}
 
-  it 'update definition', focus: true do
+  it 'update definition' do
     query = <<-GQL
       mutation updateDefinition($input: UpdateDefinitionInput!) {
         updateDefinition(input: $input) {
           definition{
             id
             content
+            languageCode
+            form
             examples{
               id
               content
@@ -23,8 +25,11 @@ RSpec.describe Mutations::UpdateDefinition do
 
     variables = {
       id: definition.id,
-      content: "to leave somebody, especially somebody you are responsible for, with no intention of returning",
-      form: nil,
+      definitionAttributes: {
+        content: "to leave somebody, especially somebody you are responsible for, with no intention of returning",
+        form: nil,
+        languageCode: 'en'
+      },
       examples: [
         {
           id: example_ids[0],
@@ -53,6 +58,8 @@ RSpec.describe Mutations::UpdateDefinition do
     expect(result[:definition]).to match({
       id: definition.id.to_s,
       content: definition.content,
+      form: definition.form,
+      languageCode: definition.language_code,
       examples: examples(definition.examples)
     })
   end

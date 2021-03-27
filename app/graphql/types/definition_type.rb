@@ -3,6 +3,7 @@ module Types
     field :id, ID, null: false
     field :content, String, null: false
     field :form, String, null: true
+    field :language_code, String, null: true
     field :note_id, ID, null: false
     field :examples, [Types::ExampleType], null: true
     field :user, Types::UserType, null: false

@@ -11,6 +11,10 @@ class User < ApplicationRecord
     JWT.encode(id.to_s, nil, 'none')
   end
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   private
 
   def lowercase_email
