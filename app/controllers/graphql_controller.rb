@@ -53,6 +53,7 @@ class GraphqlController < ApplicationController
 
   def current_user
     return if request.headers['Authorization'].blank?
+
     token = request.headers['Authorization'].split(' ').last
     return if token.blank?
 

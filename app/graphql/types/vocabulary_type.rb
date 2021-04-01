@@ -7,7 +7,7 @@ module Types
     field :ox5000, Boolean, null: true
     field :note, Types::NoteType, null: true
     def note
-      object.notes.find {|note| note.user_id == context[:current_user].try(:id)}
+      object.notes.find { |note| note.user_id == context[:current_user].try(:id) }
     end
   end
 end

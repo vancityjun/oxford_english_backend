@@ -7,6 +7,7 @@ module Mutations
 
     def resolve(id:)
       return unless context[:current_user]
+
       definition = Definition.find(id)
       note = definition.note
 
