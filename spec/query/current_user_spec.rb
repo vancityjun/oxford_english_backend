@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Types::UserType, type: :request do
   let!(:user) {create :user}
 
-  it 'returns user', focus: true do
+  it 'returns user' do
     query = <<-GQL
       query {
         currentUser{

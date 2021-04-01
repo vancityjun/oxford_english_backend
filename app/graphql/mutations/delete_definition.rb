@@ -8,8 +8,10 @@ module Mutations
     def resolve(id:)
       return unless context[:current_user]
       definition = Definition.find(id)
+      note = definition.note
 
       if definition.destroy!
+        note.destroy! if note.definitions.blank?
         {
           message: 'Successfully deleted',
           errors: []
