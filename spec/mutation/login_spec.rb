@@ -7,14 +7,16 @@ RSpec.describe Mutations::Login, type: :request do
     query = <<-GQL
       mutation login ($input: LoginInput!) {
         login (input: $input){
-            user{
-              token
-              id
+          user{
+            token
+            id
+            userAttributes {
               email
               lastName
               firstName
             }
-          }        
+          }
+        }
       }
     GQL
 
@@ -30,9 +32,11 @@ RSpec.describe Mutations::Login, type: :request do
     expect(result[:user]).to match({
       id: user.id.to_s,
       token: kind_of(String),
-      email: user.email,
-      lastName: user.last_name,
-      firstName: user.first_name
+      userAttributes: {
+        email: user.email,
+        lastName: user.last_name,
+        firstName: user.first_name
+      }
     })
   end
 end

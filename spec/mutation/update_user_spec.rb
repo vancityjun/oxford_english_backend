@@ -9,9 +9,11 @@ RSpec.describe Mutations::UpdateUser, type: :request do
           user{
             token
             id
-            email
-            lastName
-            firstName
+            userAttributes {
+              email
+              lastName
+              firstName
+            }
           }
         }
       }
@@ -37,7 +39,8 @@ RSpec.describe Mutations::UpdateUser, type: :request do
       expect(result[:user]).to match({
         id: user.id.to_s,
         token: kind_of(String),
-      }.merge(variables[:userAttributes]))
+        userAttributes: variables[:userAttributes]
+      })
     end.to_not change(user, :password)
   end
 
@@ -59,9 +62,11 @@ RSpec.describe Mutations::UpdateUser, type: :request do
         expect(result[:user]).to match({
           id: user.id.to_s,
           token: kind_of(String),
-          email: user.email,
-          lastName: user.last_name,
-          firstName: user.first_name
+          userAttributes: {
+            email: user.email,
+            lastName: user.last_name,
+            firstName: user.first_name            
+          }
         })
       end.to change(user, :password).from('1234').to('4321')
     end  
