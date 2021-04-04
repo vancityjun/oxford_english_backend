@@ -25,7 +25,7 @@ RSpec.describe Mutations::CreateDefinition, type: :request do
       vocabularyId: vocabulary.id,
       definitionAttributes: {
         content: "to leave somebody, especially somebody you are responsible for, with no intention of returning",
-        form: nil,
+        form: 'verb',
         languageCode: 'en',
       },
       examples: [
@@ -46,13 +46,13 @@ RSpec.describe Mutations::CreateDefinition, type: :request do
       and change {Note.count}.by(1)
 
     expect(result[:errors]).to be_empty
-    # created_definition = vocabulary.definitions.last
-    # expect(result[:definition]).to match({
-    #   content: created_definition.content,
-    #   form: created_definition.form,
-    #   languageCode: created_definition.language_code,
-    #   examples: examples(created_definition.examples)
-    # })
+    created_definition = vocabulary.definitions.last
+    expect(result[:definition]).to match({
+      content: created_definition.content,
+      form: created_definition.form,
+      languageCode: created_definition.language_code,
+      examples: examples(created_definition.examples)
+    })
   end
 
   def examples(examples)

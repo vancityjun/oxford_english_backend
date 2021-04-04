@@ -14,4 +14,11 @@ module Types
     argument :form, String, required: false
     argument :language_code, String, required: true
   end
+
+  class UserAttributes < Types::BaseInputObject
+    argument :email, String, required: false
+    argument :first_name, String, required: false
+    argument :last_name, String, required: false
+    argument :password, String, required: false
+  end
 end

@@ -42,18 +42,18 @@ RSpec.describe Mutations::UpdateDefinition do
       variables = {
         id: definition2.id
       }
-      result = nil
       expect do
         result = ServerSchema.execute(
           query,
           variables: {input: variables},
           context: {current_user: user}
         ).to_h.deep_symbolize_keys[:data][:deleteDefinition]
+
+        expect(result[:message]).to eq('Successfully deleted')
       end.
         to change(Definition, :count).by(-1).
         and change(Note, :count).by(0)
   
-      expect(result[:message]).to eq('Successfully deleted')
     end
   end
 end

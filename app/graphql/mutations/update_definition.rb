@@ -9,8 +9,9 @@ module Mutations
 
     def resolve(id:, definition_attributes:, examples:)
       return unless context[:current_user]
+
       definition = Definition.find(id)
-      examples_attributes = examples.as_json(only: [:id, :content, :_destroy])
+      examples_attributes = examples.as_json(only: %i[id content _destroy])
 
       definition.update(**definition_attributes.to_h, examples_attributes: examples_attributes)
 
