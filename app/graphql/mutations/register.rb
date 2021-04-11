@@ -12,7 +12,6 @@ module Mutations
       user = User.new(email: email, password: password, first_name: first_name, last_name: last_name)
 
       if user.save!
-        user.delete if token.nil?
         context[:current_user] = user
         {
           user: user,

@@ -8,18 +8,18 @@ module Mutations
 
     def resolve(email:, password:)
       user = User.find_by(email: email.downcase)
-
-      if user && user.password === password
-        context[:current_user] = user
-        {
-          user: user,
-          errors: []
-        }
-      else
-        {
-          errors: ['incorrect account or password']
-        }
+      errors = []
+      if user.blank?
+        errors << 'User not found'
+      elsif user.password != password
+        errors << 'Incorrect password'
+        user = nil
       end
+      context[:current_user] = user
+      {
+        user: user,
+        errors: errors
+      }
     end
   end
 end

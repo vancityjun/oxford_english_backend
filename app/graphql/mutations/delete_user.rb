@@ -7,7 +7,7 @@ module Mutations
 
     def resolve(password:)
       user = context[:current_user]
-      return unless user && user.password == password
+      return unless user || user.password == passwords
 
       if user.destroy!
         {

@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   attr_encrypted :password, key: 'This is a key that is 256 bits!!'
   validates :email, presence: true, uniqueness: true
+  validates :password, presence: true
 
   before_save :lowercase_email, if: :email =~ /[A-Z]/
 
