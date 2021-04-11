@@ -8,9 +8,10 @@ module Mutations
     field :errors, [String], null: false
     field :message, String, null: true
 
-    def resolve( user_attributes:, password: nil, new_password: nil)
+    def resolve(user_attributes:, password: nil, new_password: nil)
       user = context[:current_user]
       return if user.blank?
+
       error_message = 'There was an error while updating user'
 
       user_attributes = user_attributes.to_h
