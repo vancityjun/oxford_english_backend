@@ -5,14 +5,26 @@ RSpec.describe Types::VocabularyType, type: :request do
   let!(:user) {create :user, vocabularies: [vocabulary]}
   let(:note) {Note.find_by(user_id: user.id, vocabulary_id: vocabulary.id)}
   let(:definitions) {create_list :definition, 3}
-
-  it 'returns vocabularies with definitions' do
-    note.definitions << definitions
-    note.save!
-
-    query = <<-GQL
-      query($first: Int, $levels: [String]) {
-        vocabularies (first: $first,levels: $levels) {
+  let!(:query) do
+    <<-GQL
+      query(
+          $first: Int,
+          $last: Int,
+          $levels: [String],
+          $after: String,
+          $before: String,
+          $hasNote: Boolean
+          $order: String
+        ) {
+        vocabularies (
+          first: $first,
+          last: $last,
+          before: $before,
+          after: $after,
+          levels: $levels,
+          hasNote: $hasNote,
+          order: $order
+        ) {
           totalCount
           edges{
             cursor
@@ -22,7 +34,6 @@ RSpec.describe Types::VocabularyType, type: :request do
               pos
               level
               ox5000
-              count
               note {
                 updatedAt
                 definitions {
@@ -38,6 +49,12 @@ RSpec.describe Types::VocabularyType, type: :request do
         }
       }
     GQL
+  end
+
+  it 'returns vocabularies with definitions' do
+    note.definitions << definitions
+    note.save!
+
 
     result = ServerSchema.execute(
       query,
@@ -51,7 +68,6 @@ RSpec.describe Types::VocabularyType, type: :request do
       level: vocabulary.level,
       pos: vocabulary.pos,
       ox5000: vocabulary.ox5000,
-      count: 1,
       note: {
         updatedAt: kind_of(String),
         definitions: definitions_attr(definitions)

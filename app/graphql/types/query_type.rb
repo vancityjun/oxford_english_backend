@@ -2,11 +2,18 @@ module Types
   class QueryType < Types::BaseObject
     field :vocabularies, VocabularyType.connection_type, null: false do
       argument :levels, [String, { null: true }], required: false
+      argument :has_note, Boolean, required: false
+      argument :order, String, required: false
     end
-    def vocabularies(levels:)
-      return Vocabulary.all.includes(:notes) if levels.empty?
+    def vocabularies(levels:, order: nil, has_note: nil)
+      levels = %w[a1 a2 b1 b2 c1 c2] if levels.empty?
+      extra = {}
+      current_user_id = context[:current_user].try(:id)
+      extra[:notes] = { user_id: current_user_id } if has_note && current_user_id
 
-      Vocabulary.where(level: levels).includes(:notes)
+      Vocabulary.includes(:notes)
+                .where(**extra, level: levels)
+                .order(order.to_s)
     end
 
     field :current_user, UserType, null: true
