@@ -5,7 +5,8 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version 
+  2.6.3
 
 * System dependencies
 
@@ -23,7 +24,14 @@ Things you may want to cover:
 
 * ...
 
+start your Postgres server
+```
+psql
+CREATE USER jun SUPERUSER;
+\q
+
 rake db:create
 rails db:migrate
 rails db:seed
 rails server
+```
