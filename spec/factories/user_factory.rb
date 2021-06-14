@@ -3,7 +3,10 @@ FactoryBot.define do
     email {'jun@example.com'}
     last_name {'Lee'}
     first_name {'Jun'}
-    vocabularies {[association(:vocabulary)]}
     password {'1234'}
+    admin {true}
+    trait :with_vocabulary do
+      vocabularies {[association(:vocabulary)]}
+    end
   end
 end

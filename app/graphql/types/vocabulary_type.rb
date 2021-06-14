@@ -5,6 +5,7 @@ module Types
     field :level, String, null: true
     field :pos, String, null: true
     field :ox5000, Boolean, null: true
+    field :celpip, Boolean, null: true
     field :note, Types::NoteType, null: true
     def note
       object.notes.find { |note| note.user_id == context[:current_user].try(:id) }

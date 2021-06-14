@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2021_05_02_224912) do
     t.string "encrypted_password_iv"
     t.string "first_name"
     t.string "last_name"
+    t.boolean "admin", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "role"
@@ -57,7 +58,8 @@ ActiveRecord::Schema.define(version: 2021_05_02_224912) do
     t.string "word"
     t.string "level"
     t.string "pos"
-    t.boolean "ox5000"
+    t.boolean "ox5000", default: false
+    t.boolean "celpip", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
