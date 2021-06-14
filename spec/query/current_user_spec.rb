@@ -8,11 +8,14 @@ RSpec.describe Types::UserType, type: :request do
       query {
         currentUser{
           id
-          email
-          firstName
-          lastName
+          userAttributes{
+            email
+            firstName
+            lastName
+          }
           fullName
           token
+          admin
         }
       }
     GQL
@@ -24,11 +27,14 @@ RSpec.describe Types::UserType, type: :request do
 
     expect(result).to match({
       id: user.id.to_s,
-      email: user.email,
-      firstName: user.first_name,
-      lastName: user.last_name,
+      userAttributes: {
+        email: user.email,
+        firstName: user.first_name,
+        lastName: user.last_name,
+      },
       fullName: "#{user.first_name} #{user.last_name}",
-      token: user.token
+      token: user.token,
+      admin: user.admin
     })
   end
 end

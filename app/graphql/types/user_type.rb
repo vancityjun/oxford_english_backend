@@ -9,6 +9,7 @@ module Types
     field :id, ID, null: false
     field :full_name, String, null: false
     field :token, String, null: false
+    field :admin, Boolean, null: false
     field :user_attributes, Types::AttributesType, null: false
     def user_attributes
       object
