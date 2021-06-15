@@ -3,6 +3,7 @@ class Vocabulary < ApplicationRecord
   has_many :users, through: :notes
 
   validate :validate_pos
+  before_save :check_duplication
 
   POS = [
     'indefinite article',
@@ -34,5 +35,10 @@ private
 
   def validate_pos
     errors.add(:pos, 'pos is invalid') unless POS.include? pos
+  end
+
+  def check_duplication
+    vocabularies =  Vocabulary.where(word: word)
+    errors.add(:word, "duplication: vocabulary #{word} is already exist") if Vocabulary.where(word: word).count > 1
   end
 end

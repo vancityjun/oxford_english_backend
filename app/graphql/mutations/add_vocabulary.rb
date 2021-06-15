@@ -22,6 +22,7 @@ module Mutations
         note = Note.find_by(user_id: current_user.id, vocabulary_id: vocabulary.id)
   
         definition = note.definitions.build(definition_attributes.to_h)
+        definition.form = pos
   
         examples.each do |example|
           definition.examples.build(content: example[:content]) if example[:content].present?
