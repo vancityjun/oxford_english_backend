@@ -11,7 +11,7 @@ module Mutations
     field :vocabulary, Types::VocabularyType, null: false
     field :errors, [String], null: false
 
-    def resolve(word:, pos:, celpip:, level:, definition_attributes:, examples:)
+    def resolve(word:, pos:, celpip: false, level: nil, definition_attributes:, examples: [])
       current_user = context[:current_user]
       return unless current_user.admin
 

@@ -53,7 +53,7 @@ RSpec.describe Types::VocabularyType, type: :request do
     GQL
   end
 
-  it 'returns vocabularies with definitions',focus: true do
+  it 'returns vocabularies with definitions' do
     note.definitions << definitions
     note.save!
 
@@ -80,7 +80,7 @@ RSpec.describe Types::VocabularyType, type: :request do
     let!(:vocabulary) {create :vocabulary}
     let!(:vocabulary_2) {create :vocabulary, word: 'predict'}
     let!(:vocabulary_3) {create :vocabulary, word: 'infer'}
-    it 'returns that keyword is included',focus: true do
+    it 'returns that keyword is included' do
 
       note.definitions << definitions
       note.save!
