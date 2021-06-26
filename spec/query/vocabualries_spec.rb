@@ -15,6 +15,7 @@ RSpec.describe Types::VocabularyType, type: :request do
           $before: String,
           $hasNote: Boolean
           $order: String
+          $keyword: String
         ) {
         vocabularies (
           first: $first,
@@ -23,7 +24,8 @@ RSpec.describe Types::VocabularyType, type: :request do
           after: $after,
           levels: $levels,
           hasNote: $hasNote,
-          order: $order
+          order: $order,
+          keyword: $keyword
         ) {
           totalCount
           edges{
@@ -51,14 +53,13 @@ RSpec.describe Types::VocabularyType, type: :request do
     GQL
   end
 
-  it 'returns vocabularies with definitions' do
+  it 'returns vocabularies with definitions',focus: true do
     note.definitions << definitions
     note.save!
 
-
     result = ServerSchema.execute(
       query,
-      variables: {first: 1, levels: ['b1']},
+      variables: {first: 1, levels: []},
       context: {current_user: user}
     ).to_h.deep_symbolize_keys[:data][:vocabularies][:edges]
     
@@ -73,6 +74,33 @@ RSpec.describe Types::VocabularyType, type: :request do
         definitions: definitions_attr(definitions)
       }
     })
+  end
+
+  context 'search by keyword' do
+    let!(:vocabulary) {create :vocabulary}
+    let!(:vocabulary_2) {create :vocabulary, word: 'predict'}
+    let!(:vocabulary_3) {create :vocabulary, word: 'infer'}
+    it 'returns that keyword is included',focus: true do
+
+      note.definitions << definitions
+      note.save!
+  
+      result = ServerSchema.execute(
+        query,
+        variables: {keyword: 'aban'},
+        context: {current_user: user}
+      ).to_h.deep_symbolize_keys[:data][:vocabularies][:edges]
+      
+      expect(result.count).to be(1)
+      expect(result[0][:node]).to match({
+        id: vocabulary.id.to_s,
+        word: vocabulary.word,
+        level: vocabulary.level,
+        pos: vocabulary.pos,
+        ox5000: vocabulary.ox5000,
+        note: kind_of(Hash)
+      })  
+    end
   end
 
   def definitions_attr(definitions)
