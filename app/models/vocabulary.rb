@@ -3,7 +3,7 @@ class Vocabulary < ApplicationRecord
   has_many :users, through: :notes
 
   validate :validate_pos
-  validates_uniqueness_of :word
+  validates_uniqueness_of :word, scope: :pos
 
   POS = [
     'indefinite article',
