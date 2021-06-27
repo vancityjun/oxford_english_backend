@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_02_224912) do
+ActiveRecord::Schema.define(version: 2021_06_27_180805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,18 @@ ActiveRecord::Schema.define(version: 2021_05_02_224912) do
     t.index ["vocabulary_id"], name: "index_notes_on_vocabulary_id"
   end
 
+  create_table "phrases", force: :cascade do |t|
+    t.string "word"
+    t.string "level"
+    t.string "link"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "task_records", id: false, force: :cascade do |t|
+    t.string "version", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "encrypted_password"
@@ -62,6 +74,7 @@ ActiveRecord::Schema.define(version: 2021_05_02_224912) do
     t.boolean "celpip", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "link"
   end
 
   add_foreign_key "definitions", "notes"
