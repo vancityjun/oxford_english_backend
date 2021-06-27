@@ -339,7 +339,7 @@ vocabularies = Vocabulary.create(
     },
     {
         word: "accounting",
-        level: null,
+        level: nil,
         pos: "noun",
         ox5000: true,
         link: "/definition/english/accounting"
@@ -1641,7 +1641,7 @@ vocabularies = Vocabulary.create(
     },
     {
         word: "angrily",
-        level: null,
+        level: nil,
         pos: "adverb",
         ox5000: true,
         link: "/definition/english/angrily"
@@ -6233,7 +6233,7 @@ vocabularies = Vocabulary.create(
     },
     {
         word: "cleaning",
-        level: null,
+        level: nil,
         pos: "noun",
         ox5000: true,
         link: "/definition/english/cleaning"
@@ -14416,7 +14416,7 @@ vocabularies = Vocabulary.create(
     },
     {
         word: "feeding",
-        level: null,
+        level: nil,
         pos: "noun",
         ox5000: true,
         link: "/definition/english/feeding"
@@ -22242,7 +22242,7 @@ vocabularies = Vocabulary.create(
     },
     {
         word: "major",
-        level: null,
+        level: nil,
         pos: "noun",
         ox5000: true,
         link: "/definition/english/major_2"

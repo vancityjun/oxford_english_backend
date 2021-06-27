@@ -1,6 +1,5 @@
 class Vocabulary < ApplicationRecord
-  has_many :notes
-  has_many :users, through: :notes
+  include WordLists
 
   validate :validate_pos
   validates_uniqueness_of :word, scope: :pos
@@ -25,11 +24,6 @@ class Vocabulary < ApplicationRecord
     'preposition',
     'article'
   ].freeze
-
-  # temporary
-  def definitions
-    notes.map(&:definitions).flatten
-  end
 
 private
 
