@@ -87,7 +87,7 @@ RSpec.describe Types::VocabularyType, type: :request do
   
       result = ServerSchema.execute(
         query,
-        variables: {keyword: 'aban'},
+        variables: {keyword: 'Aban'},
         context: {current_user: user}
       ).to_h.deep_symbolize_keys[:data][:vocabularies][:edges]
       

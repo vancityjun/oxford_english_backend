@@ -14,7 +14,7 @@ module Types
 
       Vocabulary.includes(:notes)
                 .where(**extra, level: levels)
-                .where("word LIKE '#{keyword}%'")
+                .where("word LIKE '#{keyword.downcase}%'")
                 .order(order.to_s)
     end
 
