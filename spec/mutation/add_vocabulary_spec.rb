@@ -37,7 +37,7 @@ RSpec.describe Mutations::AddVocabulary, type: :request do
       celpip: true,
       definitionAttributes: {
         content: "to leave somebody, especially somebody you are responsible for, with no intention of returning",
-        form: 'verb',
+        form: '',
         languageCode: 'en',
       },
       examples: [
@@ -96,8 +96,37 @@ RSpec.describe Mutations::AddVocabulary, type: :request do
         # and change {Definition.count}.by(1)
   
       expect(result[:errors]).to be_empty
-  
       expect(result[:vocabulary]).to match vocabulary_attr(vocabulary.reload)
+    end
+  end
+
+  context 'validate inclusion of supported pos' do
+    it 'returns error' do
+      variables = {
+        word: 'infer',
+        pos:'verb noun adverb modal',
+        celpip: true,
+        definitionAttributes: {
+          content: "to leave somebody, especially somebody you are responsible for, with no intention of returning",
+          form: 'verb',
+          languageCode: 'en',
+        },
+        examples: [
+          {content: "The baby had been abandoned by its mother."},
+          {content: "People often simply abandon their pets when they go abroad."}
+        ]
+      }
+      result = nil
+      expect do
+        result = ServerSchema.execute(
+          query,
+          variables: {input: variables},
+          context: {current_user: user}
+        ).to_h.deep_symbolize_keys[:data][:addVocabulary]
+      end.
+        to_not change {Vocabulary.count}
+  
+      expect(result[:errors]).to be_empty
     end
   end
 
